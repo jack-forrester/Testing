@@ -1,5 +1,5 @@
-import bs4 as bs
 import urllib
+import bs4 as bs
 
 def FindURL():
 	#Open up beatiful soup
@@ -50,3 +50,17 @@ def FindURL():
 	#print(scorecardURL)
 	#for each cell find the one containing the URL
 	return scorecardURL
+
+def getScoreInfo(URL):
+    scorecardURL = urllib.urlopen(URL).read()
+    scorecard = bs.BeautifulSoup(scorecardURL,'lxml')
+    tables = scorecard.find_all('table')
+    row = tables[3].find_all('tr')
+    row = row[3].find_all('tr')
+    cell = row[2].find('td')
+    table = cell.find('span')
+    return table
+
+def getRows(scoreInfo):
+	rows = scoreInfo.find_all('tr')
+	return rows
