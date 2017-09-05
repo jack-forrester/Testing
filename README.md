@@ -1,5 +1,3 @@
 # Testing
 
-This is a test to see if this works/n
-
-Cool beans
+In here contains code that i like to play with
