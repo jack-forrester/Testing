@@ -1,6 +1,7 @@
 import urllib
 import bs4 as bs
 import csv
+import math
 
 def FindURL():
 	#Open up beatiful soup
@@ -68,12 +69,13 @@ def getRows(scoreInfo):
 
 def writeLine(resultSet, writer):
 	string = ''
-	print(resultSet)
 	for result in resultSet:
-		if isinstance(result, unicode) != True:
-			string += result.text + ','
-		else:
+		if isinstance(result, unicode) is True:
 			string += result + ','
+		elif isinstance(result, float) is True:
+			string += str(result) + ','
+		else:
+			string += result.text + ','
 	string = string.split(',')
 	writer.writerow(string)
 
@@ -85,12 +87,15 @@ def openCSVWr(filename):
 def getScore(totals):
 	score = []
 	for total in totals:
-	    runs = total.text.split(' for')
-	    wickets = runs[1].split('(')
-	    overs = wickets[1].split('o')
-	    runs = runs[0].lstrip()
-	    wickets = wickets[0].lstrip()
-	    overs = overs[0].lstrip()
-	    score.append(runs)
-	    score.append(wickets)
-	    score.append(overs)
+		runs = total.text.split(' for')
+		wickets = runs[1].split(' (')
+		overs = wickets[1].split(' o')
+		runs = runs[0].lstrip()
+		wickets = wickets[0].lstrip()
+		overs = overs[0].lstrip()
+		overs = math.floor(float(overs))
+		score.append(runs)
+		score.append(wickets)
+		score.append(overs)
+		print(math.floor(float(overs)))
+	return score
