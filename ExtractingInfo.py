@@ -1,14 +1,10 @@
-import FindStuff
-import CSV
+import LiveScoresAPI
+import csv
 
-URL = FindStuff.FindURL()
-scoreInfo = FindStuff.getScoreInfo(URL)
-rows = FindStuff.getRows(scoreInfo)
+URL = LiveScoresAPI.FindURL()
+scoreInfo = LiveScoresAPI.getScoreInfo(URL)
+rows = LiveScoresAPI.getRows(scoreInfo)
 
+    #Import titles
 teams = rows[5].find_all('td')
-
-for team in teams:
-    print(team.text)
-
-with open('csvfile.csv','wb') as file:
-csvRows = CSV.reader(File)
+LiveScoresAPI.writeLine(teams)

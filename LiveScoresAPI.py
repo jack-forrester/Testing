@@ -64,3 +64,11 @@ def getScoreInfo(URL):
 def getRows(scoreInfo):
 	rows = scoreInfo.find_all('tr')
 	return rows
+
+def writeLine(resultSet):
+    string = ''
+    for result in resultSet:
+        string = string + str(result.text) + ','
+    string += '\n'
+    with open('data.csv','wb') as csvfile:
+        csvfile.write(string)
